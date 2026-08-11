@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CropGuard AI — Climate Early Warning</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      .engine-note{font-size:11px;color:#4e735a;background:#d7e9d9;padding:9px;border-radius:7px;margin-top:18px}.crop-form label>span{display:flex;justify-content:space-between}.crop-form input[type=range]{width:100%;accent-color:var(--green);margin:10px 0 0}.analyze-btn{transition:.2s}.analyze-btn:hover{background:#176544}.analyze-btn:disabled{opacity:.7;cursor:wait}.analysis-status{grid-column:span 2;margin:0;text-align:center;font-size:11px;font-weight:600;color:var(--green);min-height:14px}
+    </style>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <a class="brand" href="#top"><span class="brand-mark">⌁</span><span>CropGuard <i>AI</i></span></a>
+        <span class="brand-caption" data-i18n="brandCaption">Climate early warning</span>
+        <nav>
+          <a class="nav-link active" href="#monitor"><span>◉</span><span data-i18n="riskMonitor">Risk Monitor</span></a>
+          <a class="nav-link" href="#crop"><span>⌘</span><span data-i18n="myCrop">My Crop</span></a>
+          <a class="nav-link" href="#history"><span>↗</span><span data-i18n="riskHistory">Risk History</span></a>
+          <a class="nav-link" href="#alerts"><span>◌</span><span data-i18n="alerts">Alerts</span><b class="alert-dot">3</b></a>
+        </nav>
+        <div class="sidebar-foot"><div class="pulse"></div><span data-i18n="demoMode">Demo intelligence active</span></div>
+      </aside>
+
+      <main id="top">
+        <header class="topbar">
+          <button class="mobile-brand"><span>⌁</span> CropGuard <i>AI</i></button>
+          <div class="top-meta"><span class="live-dot"></span><span data-i18n="liveSignals">Live climate signals</span><span class="date">08 Aug 2026</span></div>
+          <label class="language-select"><span>◎</span><select id="language" aria-label="Language"><option value="en">English</option><option value="te">తెలుగు</option><option value="hi">हिन्दी</option></select></label>
+        </header>
+
+        <section class="hero" id="monitor">
+          <div>
+            <p class="eyebrow" data-i18n="greeting">GOOD MORNING, FARMER</p>
+            <h1 data-i18n="overview">Your crop risk overview</h1>
+            <p class="hero-sub" data-i18n="overviewSub">A clearer view of what your crop needs next.</p>
+          </div>
+          <div class="crop-pill" id="contextPill">🍅 <span>Tomato</span><em>•</em><span>Flowering</span><em>•</em><span>Vijayawada</span><button aria-label="Edit crop" onclick="document.getElementById('crop').scrollIntoView({behavior:'smooth'})">↗</button></div>
+        </section>
+
+        <section class="score-layout">
+          <article class="score-card">
+            <div class="score-header"><span data-i18n="aiEstimated">AI-ESTIMATED RISK SCORE</span><span class="prototype" data-i18n="prototype">PROTOTYPE MODEL</span></div>
+            <div class="gauge-wrap"><svg class="gauge" viewBox="0 0 220 125"><path d="M20 108 A92 92 0 0 1 200 108" class="gauge-bg"/><path id="gaugeFill" d="M20 108 A92 92 0 0 1 200 108" class="gauge-fill" pathLength="100"/></svg><div class="score-value"><strong id="riskScore">78</strong><span id="riskLevel">HIGH RISK</span></div></div>
+            <div class="score-caption"><span class="signal-ring"></span><span id="scoreMessage">Conditions need attention in the next 24 hours.</span></div>
+          </article>
+          <article class="top-risk-card">
+            <div class="top-risk-label"><span>⚠</span><span data-i18n="highestRisk">HIGHEST POTENTIAL THREAT</span></div>
+            <h2 id="topThreat">Early Blight</h2>
+            <div class="risk-percent"><strong id="topThreatRisk">78%</strong><span data-i18n="estimatedLikelihood">estimated likelihood</span></div>
+            <p id="topThreatDesc">Favorable fungal conditions are building around your crop.</p>
+            <div class="risk-card-footer"><span data-i18n="riskPeaks">Risk peaks</span><b id="peakDay">Tomorrow</b><span class="arrow">→</span></div>
+          </article>
+        </section>
+
+        <section class="warning-banner" id="alerts"><div class="warning-icon">!</div><div><b data-i18n="earlyWarning">Early warning</b><p id="warningText">Your tomato crop may be entering a high-risk period for fungal disease.</p></div><button class="warning-action" onclick="document.getElementById('actions').scrollIntoView({behavior:'smooth'})" data-i18n="viewActions">View action plan →</button></section>
+
+        <section class="insight-grid">
+          <article class="panel factors-panel">
+            <div class="panel-heading"><div><p class="eyebrow" data-i18n="riskDrivers">RISK DRIVERS</p><h3 data-i18n="whyHigh">Why risk is elevated</h3></div><button class="more">•••</button></div>
+            <div id="factors"></div>
+          </article>
+          <article class="panel weather-panel">
+            <div class="panel-heading"><div><p class="eyebrow" data-i18n="weatherIntel">WEATHER INTELLIGENCE</p><h3 id="weatherLocation">Vijayawada</h3></div><span class="weather-icon">☁</span></div>
+            <div class="weather-now"><div><strong id="temperature">29°</strong><span>C</span><p id="weatherSummary">Light rain expected</p></div><div class="weather-stats"><span><i>💧</i><b id="humidity">82%</b><small data-i18n="humidity">Humidity</small></span><span><i>☔</i><b id="rainProb">70%</b><small data-i18n="rain">Rain</small></span><span><i>⌁</i><b id="wind">10</b><small data-i18n="wind">Wind km/h</small></span></div></div>
+            <div class="forecast" id="forecast"></div>
+          </article>
+        </section>
+
+        <section class="analysis-grid">
+          <article class="panel reasoning"><p class="eyebrow">✦ <span data-i18n="aiReasoning">AI REASONING</span></p><h3 data-i18n="whyConcerned">Why the AI is concerned</h3><p id="reasoningText">Humidity has remained high for two days, while rain is expected again tonight. This combination creates a favorable environment for fungal diseases at flowering stage.</p><div class="trend-row"><span data-i18n="last48">LAST 48 HOURS</span><span>Humidity <b class="up">↑</b></span><span>Rainfall <b class="up">↑</b></span><span>Temperature <b>→</b></span></div></article>
+          <article class="panel threats"><div class="panel-heading"><div><p class="eyebrow" data-i18n="potentialThreats">POTENTIAL THREATS</p><h3 data-i18n="likelihoodOnly">Risk likelihood, not diagnosis</h3></div></div><div id="threats"></div></article>
+        </section>
+
+        <section class="action-section" id="actions"><div class="section-title"><p class="eyebrow" data-i18n="actionPlan">ACTION PLAN</p><h2 data-i18n="whatNow">What to do next</h2></div><div class="action-grid"><article class="action-card primary-action"><span class="card-number">01</span><span class="action-emoji">⌕</span><h3 data-i18n="inspectWithin">Inspect within 24 hours</h3><p id="inspectionText">Check lower leaves and dense areas first for dark spots or yellowing.</p></article><article class="action-card"><span class="card-number">02</span><span class="action-emoji">↝</span><h3 data-i18n="avoidIrrigation">Avoid overhead irrigation</h3><p data-i18n="irrigationInfo">Keep leaves dry where possible to reduce leaf wetness.</p></article><article class="action-card"><span class="card-number">03</span><span class="action-emoji">↔</span><h3 data-i18n="improveAirflow">Improve airflow</h3><p data-i18n="airflowInfo">Clear dense growth and keep plant rows well ventilated.</p></article></div></section>
+
+        <section class="timing-timeline"><article class="timing-card"><p class="eyebrow">◷ <span data-i18n="bestTime">BEST TIME TO ACT</span></p><h2 id="actionWindow">Tomorrow morning</h2><p id="actionWindowReason">Rain is likely tonight. A dry morning window is better for close inspection and any locally approved action.</p><span class="safe-chip">● <span data-i18n="suitableWindow">Suitable monitoring window</span></span></article><article class="timeline-card"><p class="eyebrow" data-i18n="riskTimeline">RISK TIMELINE</p><div class="timeline" id="timeline"></div><p id="timelineExplain">Risk is expected to peak tomorrow because of predicted rainfall and high humidity.</p></article></section>
+
+        <section class="setup-section" id="crop"><div class="setup-copy"><p class="eyebrow" data-i18n="updateContext">UPDATE CROP CONTEXT</p><h2 data-i18n="tailorRisk">Tailor the warning to your farm</h2><p data-i18n="contextInfo">Change a few conditions and CropGuard recalculates the risk transparently.</p><div class="engine-note">✦ Humidity + rainfall + temperature + crop + stage</div></div><form id="cropForm" class="crop-form"><label><span data-i18n="selectCrop">Crop</span><select id="cropSelect"><option>Tomato</option><option>Rice</option><option>Chilli</option><option>Maize</option><option>Cotton</option><option>Potato</option></select></label><label><span data-i18n="growthStage">Growth stage</span><select id="stageSelect"><option>Flowering</option><option>Seedling</option><option>Vegetative</option><option>Fruiting</option><option>Maturity</option></select></label><label><span data-i18n="location">Location</span><select id="locationSelect"><option>Vijayawada</option><option>Guntur</option><option>Warangal</option><option>Hyderabad</option></select></label><label><span data-i18n="scenario">Scenario</span><select id="scenarioSelect"><option value="rainy">Rainy / high humidity</option><option value="calm">Dry / moderate climate</option></select></label><label><span>Humidity <b id="humidityInputValue">82%</b></span><input id="humidityInput" type="range" min="30" max="95" value="82"></label><label><span>Rain probability <b id="rainInputValue">70%</b></span><input id="rainInput" type="range" min="0" max="100" value="70"></label><button type="submit" class="analyze-btn">✦ <span data-i18n="analyze">Analyze crop risk</span></button><p class="analysis-status" id="analysisStatus" aria-live="polite"></p></form></section>
+
+        <section class="support-grid"><article class="image-card"><div><p class="eyebrow" data-i18n="optionalVision">OPTIONAL VISUAL CHECK</p><h2 data-i18n="checkLeaves">Want to check the leaves?</h2><p data-i18n="imageInfo">Add a photo as supporting evidence. It never replaces climate risk signals.</p><label class="upload-btn">⌁ <span data-i18n="uploadImage">Upload crop image</span><input id="imageUpload" type="file" accept="image/*" hidden /></label></div><div class="image-status" id="imageStatus"><span>◌</span><p data-i18n="noVisual">No visual evidence added</p></div></article><article class="copilot-card"><p class="eyebrow">✦ <span data-i18n="cropCopilot">CROP COPILOT</span></p><h2 data-i18n="askAboutRisk">Ask about this risk</h2><div class="quick-asks"><button data-question="why" data-i18n="askWhy">Why is risk high?</button><button data-question="check" data-i18n="askCheck">What should I check first?</button><button data-question="rain" data-i18n="askRain">Will rain increase risk?</button></div><div class="copilot-answer" id="copilotAnswer" data-i18n="copilotPrompt">Choose a question for an answer based on your current crop conditions.</div></article></section>
+
+        <section class="history-section" id="history"><div class="panel-heading"><div><p class="eyebrow" data-i18n="riskHistory">RISK HISTORY</p><h2 data-i18n="recentAssessments">Recent assessments</h2></div><span class="history-note" data-i18n="historyNote">Demo records</span></div><div class="history-list" id="historyList"></div></section>
+        <footer><span>CropGuard AI</span><span data-i18n="footerNote">Prototype decision-support tool · Not a disease diagnosis</span></footer>
+      </main>
+    </div>
+    <script src="./app.js"></script>
+    <script>
+      (() => {
+        const humidity = document.getElementById('humidityInput');
+        const rain = document.getElementById('rainInput');
+        const syncRangeLabels = () => {
+          document.getElementById('humidityInputValue').textContent = humidity.value + '%';
+          document.getElementById('rainInputValue').textContent = rain.value + '%';
+        };
+        humidity.addEventListener('input', syncRangeLabels);
+        rain.addEventListener('input', syncRangeLabels);
+        document.getElementById('cropForm').addEventListener('submit', (event) => {
+          event.preventDefault();
+          state.humidity = Number(humidity.value);
+          state.rain = Number(rain.value);
+          state.crop = document.getElementById('cropSelect').value;
+          state.stage = document.getElementById('stageSelect').value;
+          state.location = document.getElementById('locationSelect').value;
+          state.scenario = document.getElementById('scenarioSelect').value;
+          const cropFactor = {Tomato:14,Rice:8,Chilli:12,Maize:7,Cotton:6,Potato:15}[state.crop] || 8;
+          const stageFactor = {Seedling:5,Vegetative:8,Flowering:12,Fruiting:11,Maturity:4}[state.stage] || 7;
+          state.score = Math.max(8, Math.min(96, Math.round(10 + state.humidity * .23 + state.rain * .18 + cropFactor + stageFactor + (state.scenario === 'rainy' ? 17 : 5))));
+          const button = event.currentTarget.querySelector('.analyze-btn');
+          const status = document.getElementById('analysisStatus');
+          button.disabled = true;
+          status.textContent = 'Analyzing crop and climate signals…';
+          setTimeout(() => {
+            render();
+            button.disabled = false;
+            status.textContent = `Analysis updated — AI-estimated risk: ${state.score}/100`;
+            document.getElementById('monitor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 450);
+        });
+      })();
+    </script>
+  </body>
+</html>
